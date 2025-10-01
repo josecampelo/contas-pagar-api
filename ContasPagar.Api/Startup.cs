@@ -1,4 +1,5 @@
 using ContasPagar.Api.Data;
+using ContasPagar.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +31,8 @@ namespace ContasPagar.Api
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+
+            services.AddScoped<IContaPagarService, ContaPagarService>();
 
             services.AddControllers();
         }
