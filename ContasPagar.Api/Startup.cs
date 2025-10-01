@@ -34,6 +34,16 @@ namespace ContasPagar.Api
 
             services.AddScoped<IContaPagarService, ContaPagarService>();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Contas a Pagar API",
+                    Version = "v1",
+                    Description = "API para gerenciamento de contas a pagar."
+                });
+            });
+
             services.AddControllers();
         }
 
@@ -43,6 +53,13 @@ namespace ContasPagar.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Contas a Pagar API v1");
+                    c.RoutePrefix = string.Empty;
+                });
             }
 
             app.UseHttpsRedirection();
